@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BucketyModal } from './Modal/modal';
 import './App.css';
+import Container from './container';
 
 function App() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -13,12 +14,7 @@ function App() {
 
   return (
     <div>
-      <h1> Buckety </h1>
-      <div>
-        {' '}
-        <button onClick={onClick}> Add new item </button>
-        {isOpenModal ? <BucketyModal onClick={onClick} /> : null}
-      </div>
+      <Container />
     </div>
   );
 }

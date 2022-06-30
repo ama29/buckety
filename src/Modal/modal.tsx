@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 
-export const BucketyModal = (props: { onClick: Function }) => {
+export const BucketyModal = (props: {
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -13,15 +15,17 @@ export const BucketyModal = (props: { onClick: Function }) => {
           setTitle(e.target.value);
         }}
       />
-      <input
+      <textarea
         placeholder="Description"
         value={description}
         onChange={(e) => {
           setDescription(e.target.value);
         }}
       />
+      <button type="submit" onClick={props.onClick}>
+        {' '}
+        Submit{' '}
+      </button>
     </div>
   );
 };
-
-// export default BucketyModal;
