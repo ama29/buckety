@@ -2,6 +2,7 @@ import React, { MouseEventHandler, useState } from 'react';
 
 export const BucketyModal = (props: {
   onClick: MouseEventHandler<HTMLButtonElement>;
+  addItem: Function;
 }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -22,7 +23,13 @@ export const BucketyModal = (props: {
           setDescription(e.target.value);
         }}
       />
-      <button type="submit" onClick={props.onClick}>
+      <button
+        type="submit"
+        onClick={(e) => {
+          props.onClick(e);
+          props.addItem((title = { title }), (description = { description }));
+        }}
+      >
         {' '}
         Submit{' '}
       </button>
