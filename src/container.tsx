@@ -4,25 +4,30 @@ import { BucketyModal } from './Modal/modal';
 function Container() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [hideButton, setHideButton] = useState(false);
-  const [numItems, setNumItems] = useState(0);
-  const [titles, setTitles] = useState({});
-  const [descriptions, setDescriptions] = useState({});
+  const [count, setCount] = useState(0);
+  const [items, setItems] = useState<
+    { title: string; description: string; id: number }[]
+  >([]);
 
   const onClick = () => {
     setIsOpenModal(!isOpenModal);
     setHideButton(!hideButton);
   };
 
-  const addItem = (numItems: number, title: string, description: string) => {
-    setNumItems(numItems + 1);
-    setTitles((titles) => ({ ...titles, numItems: 'testTitle' }));
-    setDescriptions((descriptions) => ({
-      ...descriptions,
-      numItems: 'testdescription',
-    }));
-    console.log('num', numItems);
-    console.log('titles', titles);
-    console.log('descriptions', descriptions);
+  const addItem = (title: string, description: string) => {
+    setCount(count + 1);
+    setItems([...items, { title: title, description: description, id: count }]);
+  };
+
+  const displayItems = () => {
+    return (
+    {items.map(({ title, description, id }) => (
+      <div key={id}>
+        <h2> {title} </h2>
+        <p> {description} </p>
+      </div>
+    ))}
+    );
   };
 
   return (
@@ -35,6 +40,7 @@ function Container() {
           <BucketyModal onClick={onClick} addItem={addItem} />
         ) : null}
       </div>
+      <div>{displayItems}</div>
     </div>
   );
 }

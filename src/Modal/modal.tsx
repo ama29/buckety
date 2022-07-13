@@ -24,10 +24,18 @@ export const BucketyModal = (props: {
         }}
       />
       <button
+        onClick={(e) => {
+          props.onClick(e);
+        }}
+      >
+        {' '}
+        Close{' '}
+      </button>
+      <button
         type="submit"
         onClick={(e) => {
           props.onClick(e);
-          props.addItem((title = { title }), (description = { description }));
+          props.addItem(title, description);
         }}
       >
         {' '}
