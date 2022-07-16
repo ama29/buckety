@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { BucketyModal } from './Modal/modal';
 
+interface BucketListItem {
+  title: string;
+  description: string;
+  id: number;
+}
 function Container() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [hideButton, setHideButton] = useState(false);
   const [count, setCount] = useState(0);
-  const [items, setItems] = useState<
-    { title: string; description: string; id: number }[]
-  >([]);
+  const [items, setItems] = useState<BucketListItem[]>([]);
 
   const onClick = () => {
     setIsOpenModal(!isOpenModal);
@@ -19,16 +22,16 @@ function Container() {
     setItems([...items, { title: title, description: description, id: count }]);
   };
 
-  const displayItems = () => {
-    return (
-    {items.map(({ title, description, id }) => (
-      <div key={id}>
-        <h2> {title} </h2>
-        <p> {description} </p>
-      </div>
-    ))}
-    );
-  };
+  // const displayItems = () => {
+  //   return (
+  //   {items.map(({ title, description, id }) => (
+  //     <div key={id}>
+  //       <h2> {title} </h2>
+  //       <p> {description} </p>
+  //     </div>
+  //   ))}
+  //   );
+  // };
 
   return (
     <div>
@@ -40,7 +43,16 @@ function Container() {
           <BucketyModal onClick={onClick} addItem={addItem} />
         ) : null}
       </div>
-      <div>{displayItems}</div>
+      <div>
+        {items.map((item) => {
+          return (
+            <div key={item.id}>
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
