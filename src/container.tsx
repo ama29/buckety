@@ -5,6 +5,7 @@ interface BucketListItem {
   title: string;
   description: string;
   id: number;
+  tags: string[];
 }
 function Container() {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -17,21 +18,28 @@ function Container() {
     setHideButton(!hideButton);
   };
 
-  const addItem = (title: string, description: string) => {
+  const addItem = (title: string, description: string, tags: string[]) => {
     setCount(count + 1);
-    setItems([...items, { title: title, description: description, id: count }]);
+    setItems([
+      ...items,
+      { title: title, description: description, id: count, tags: tags },
+    ]);
   };
 
-  // const displayItems = () => {
-  //   return (
-  //   {items.map(({ title, description, id }) => (
-  //     <div key={id}>
-  //       <h2> {title} </h2>
-  //       <p> {description} </p>
-  //     </div>
-  //   ))}
-  //   );
-  // };
+  const deleteItem = (id: number) => {
+    setItems(items.filter((item) => item.id !== id));
+  };
+
+  const displayItems = items.map((item, index) => {
+    return (
+      <div key={index}>
+        <h2>{item.title}</h2>
+        <p>{item.description}</p>
+        <p>{item.tags}</p>
+        <button onClick={(e) => deleteItem(item.id)}> Delete</button>
+      </div>
+    );
+  });
 
   return (
     <div>
@@ -43,16 +51,7 @@ function Container() {
           <BucketyModal onClick={onClick} addItem={addItem} />
         ) : null}
       </div>
-      <div>
-        {items.map((item) => {
-          return (
-            <div key={item.id}>
-              <h2>{item.title}</h2>
-              <p>{item.description}</p>
-            </div>
-          );
-        })}
-      </div>
+      <div>{displayItems}</div>
     </div>
   );
 }
