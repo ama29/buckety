@@ -43,7 +43,7 @@ function Container() {
   });
 
   return (
-    <div>
+    <div className="container">
       <div className="flex-container">
         <div className="header">
           <h1>

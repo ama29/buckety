@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Lobster);
 
+.container {
+  color: #fbe8a6;
+  background-color: red;
+}
 .flex-container {
   display: flex;
   flex-direction: column;
